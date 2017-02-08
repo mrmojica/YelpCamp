@@ -1,16 +1,38 @@
 const express = require("express");
 const bodyParser = require('body-parser');
-
-// const jsonParser = bodyParser.json();
+const mongoose = require("mongoose");
 const app = express();
 
+
+// const jsonParser = bodyParser.json();
+
+mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
 
-let campgrounds = [
-		{name: "Big Basin", image: "https://farm7.staticflickr.com/6188/6106475454_cf4dab4d64.jpg"},
-		{name: "Lake Ford", image: "https://farm4.staticflickr.com/3189/3062178880_4edc3b60d5.jpg"},
-		{name: "Green Hill", image: "https://farm4.staticflickr.com/3149/3062180144_ee0d2d466a.jpg"}
-	];
+//SCHEMA
+
+const campgroundSchema = new mongoose.Schema({
+	name: String,
+	image: String
+});
+
+const Campground = mongoose.model("Campground", campgroundSchema);
+
+// Campground.create(
+// 	{
+// 		name: "Lake Ford",
+// 		image: "https://farm4.staticflickr.com/3189/3062178880_4edc3b60d5.jpg"
+
+
+// 	}, function(err, campground){
+// 		if(err) {
+// 			console.log(err);
+// 		} else {
+// 			console.log("created new campground:");
+// 			console.log(campground);
+// 		}
+// 	}
+// );
 
 
 
@@ -21,19 +43,31 @@ app.get("/", function(req, res) {
 });
 
 app.get("/campgrounds", function(req, res){
-
-	res.render("campgrounds", {campgrounds: campgrounds});
+	// Get all campgrounds from DB
+	Campground.find({}, function(err, campgrounds){
+		if(err){
+			console.log(err);
+		} else {
+			res.render("campgrounds", {campgrounds: campgrounds});
+		}
+	});
 
 });
 
 app.post("/campgrounds", function(req, res){
 	let name = req.body.name;
 	let image = req.body.image
-	console.log(name);
 	let newCampground = {name: name, image: image}
-	campgrounds.push(newCampground);
+	//Create a new campground and save to DB
+	Campground.create(newCampground, function(err, newCreated){
+		if(err){
+			console.log(err);
+		} else {
+			res.redirect("/campgrounds");
+		}
+	})
 	
-	res.redirect("/campgrounds");
+
 });
 
 app.get("/campgrounds/new", function(req, res){
