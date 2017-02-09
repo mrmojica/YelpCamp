@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const campgroundSchema = new mongoose.Schema({
 	name: String,
-	image: String
+	image: String,
+	description: String
 });
 
 const Campground = mongoose.model("Campground", campgroundSchema);
@@ -21,7 +22,8 @@ const Campground = mongoose.model("Campground", campgroundSchema);
 // Campground.create(
 // 	{
 // 		name: "Lake Ford",
-// 		image: "https://farm4.staticflickr.com/3189/3062178880_4edc3b60d5.jpg"
+// 		image: "https://farm4.staticflickr.com/3189/3062178880_4edc3b60d5.jpg",
+// 		description: "Explore the vast lake of Lake Ford.  Fresh open nature."
 
 
 // 	}, function(err, campground){
@@ -33,6 +35,9 @@ const Campground = mongoose.model("Campground", campgroundSchema);
 // 		}
 // 	}
 // );
+
+// To delete all data in DB
+// db.collection.drop();
 
 
 
@@ -48,7 +53,7 @@ app.get("/campgrounds", function(req, res){
 		if(err){
 			console.log(err);
 		} else {
-			res.render("campgrounds", {campgrounds: campgrounds});
+			res.render("index", {campgrounds: campgrounds});
 		}
 	});
 
@@ -56,8 +61,9 @@ app.get("/campgrounds", function(req, res){
 
 app.post("/campgrounds", function(req, res){
 	let name = req.body.name;
-	let image = req.body.image
-	let newCampground = {name: name, image: image}
+	let image = req.body.image;
+	let description = req.body.description;
+	let newCampground = {name: name, image: image, description: description}
 	//Create a new campground and save to DB
 	Campground.create(newCampground, function(err, newCreated){
 		if(err){
@@ -73,6 +79,17 @@ app.post("/campgrounds", function(req, res){
 app.get("/campgrounds/new", function(req, res){
 	res.render("new.ejs");
 });
+
+app.get("/campgrounds/:id", function(req, res){
+	Campground.findById(req.params.id, function(err, foundCampground){
+		if(err){
+			console.log(err)
+		} else {
+			res.render("show", {campground: foundCampground});
+		}
+	});
+});
+
 
 
 app.listen(8080 || process.env.PORT, function(){
