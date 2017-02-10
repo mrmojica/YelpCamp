@@ -14,6 +14,8 @@ const app = express();
 
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
+//serv public directory 
+app.use(express.static(__dirname + "/public"));
 
 
 
