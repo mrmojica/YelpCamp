@@ -61,7 +61,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
+//allow us to get user information on every route (req.user)
+app.use(function(req, res , next){
+	//whatever is entered in res.render is available to all routes
+	 res.locals.currentUser = req.user;
+	 next();
+});
 
 
 app.get("/", function(req, res) {
@@ -74,6 +79,7 @@ app.get("/campgrounds", function(req, res){
 		if(err){
 			console.log(err);
 		} else {
+			//return user info for navbar login/logout status
 			res.render("campgrounds/index", {campgrounds: campgrounds});
 		}
 	});
