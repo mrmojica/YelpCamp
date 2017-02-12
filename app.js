@@ -4,6 +4,10 @@ const mongoose = require("mongoose");
 const Campground = require("./models/campground");
 const Comment = require("./models/comment");
 const seedDB = require("./seeds");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user");
+
 
 const app = express();
 
@@ -14,7 +18,7 @@ const app = express();
 
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
-//serv public directory 
+//serv public directory -> connect stylesheet to header file
 app.use(express.static(__dirname + "/public"));
 
 
