@@ -7,6 +7,7 @@ const seedDB = require("./seeds");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
+const methodOverride = require("method-override");
 
 //requiring routes
 const commentRoutes = require("./routes/comments");
@@ -26,7 +27,8 @@ mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
 //serv public directory -> connect stylesheet to header file
 app.use(express.static(__dirname + "/public"));
-
+//review
+app.use(methodOverride("_method"));
 
 
 // Campground.create(

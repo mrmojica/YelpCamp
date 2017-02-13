@@ -57,6 +57,32 @@ router.get("/campgrounds/:id", function(req, res){
 });
 
 
+// EDIT CAMPGROUD
+router.get("/campgrounds/:id/edit", function(req, res){
+	Campground.findById(req.params.id, function(err, foundCampground){
+		if(err){
+			res.redirect("/campgrounds");
+		} else {
+			res.render("campgrounds/edit",{campground: foundCampground});
+		}
+	});
+	
+});
+
+// UPDATE CAMPGROUND
+router.put("/campgrounds/:id", function(req, res){
+	let data = {name: req.body.name,}
+	// req.body.campground is being returned as a single object from input "name" value
+	Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
+		if(err){
+			res.redirect("/campgrounds");
+		} else {
+			res.redirect("/campgrounds/" + req.params.id);
+		}
+	});
+});
+
+
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
