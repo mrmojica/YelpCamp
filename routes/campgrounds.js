@@ -58,14 +58,12 @@ router.get("/campgrounds/:id", function(req, res){
 
 
 // EDIT CAMPGROUD
-router.get("/campgrounds/:id/edit", function(req, res){
-	Campground.findById(req.params.id, function(err, foundCampground){
-		if(err){
-			res.redirect("/campgrounds");
-		} else {
+router.get("/campgrounds/:id/edit", checkCampgroundOwnership, function(req, res){
+		Campground.findById(req.params.id, function(err, foundCampground){
 			res.render("campgrounds/edit",{campground: foundCampground});
-		}
-	});
+		});
+	
+	
 	
 });
 
@@ -85,7 +83,7 @@ router.put("/campgrounds/:id", function(req, res){
 
 // DELETE CAMPGROUND
 
-router.delete("/campgrounds/:id", function(req, res){
+router.delete("/campgrounds/:id", checkCampgroundOwnership, function(req, res){
 	Campground.findByIdAndRemove(req.params.id, function(err){
 		if(err){
 			res.redirect("/campgrounds");
@@ -103,6 +101,31 @@ function isLoggedIn(req, res, next){
 		return next();
 	}
 	res.redirect("/login");
+}
+
+//created middleware to check if user owns campground post
+function checkCampgroundOwnership(req, res, next){
+	//is user logged in
+	if(req.isAuthenticated()){
+		Campground.findById(req.params.id, function(err, foundCampground){
+		if(err){
+			res.redirect("/campgrounds");
+		} else {
+			// does user own the campground?
+			//use mongoose equal method since comparing an object to a string
+			if(foundCampground.author.id.equals(req.user._id)){
+				next();
+			} else {
+				//return to previous page
+				res.redirect("back");
+			}
+			
+		}
+	});
+	
+	} else {
+		res.redirect("back");
+	}
 }
 
 module.exports = router; 
