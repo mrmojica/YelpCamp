@@ -9,6 +9,7 @@ const middlewareObj = {
 							if(req.isAuthenticated()){
 								Campground.findById(req.params.id, function(err, foundCampground){
 								if(err){
+									req.flash("error", "Campground not found.");
 									res.redirect("/campgrounds");
 								} else {
 									// does user own the campground?
@@ -16,6 +17,7 @@ const middlewareObj = {
 									if(foundCampground.author.id.equals(req.user._id)){
 										next();
 									} else {
+										req.flash("error", "You do not have permission to do that.");
 										//return to previous page
 										res.redirect("back");
 									}
@@ -24,6 +26,7 @@ const middlewareObj = {
 							});
 							
 							} else {
+								req.flash("error", "You need to be logged in.")
 								res.redirect("back");
 							}
 						},
@@ -33,6 +36,7 @@ const middlewareObj = {
 							if(req.isAuthenticated()){
 								Comment.findById(req.params.comment_id, function(err, foundComment){
 								if(err){
+									req.flash("error", "Comment not found.");
 									res.redirect("/campgrounds");
 								} else {
 									// does user own the comment?
@@ -40,6 +44,7 @@ const middlewareObj = {
 									if(foundComment.author.id.equals(req.user._id)){
 										next();
 									} else {
+										req.flash("error", "You do not have permission.");
 										//return to previous page
 										res.redirect("back");
 									}
@@ -48,6 +53,7 @@ const middlewareObj = {
 							});
 							
 							} else {
+								req.flash("error", "You need to be logged in.");
 								res.redirect("back");
 							}
 	},
@@ -56,6 +62,8 @@ const middlewareObj = {
 					if(req.isAuthenticated()){
 						return next();
 					}
+					//req.flash allows access to display on login page (always run before redirect)
+					req.flash("error", "You need to be logged in.");
 					res.redirect("/login");
 				}
 

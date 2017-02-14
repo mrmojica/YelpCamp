@@ -8,6 +8,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const methodOverride = require("method-override");
+const flash = require("connect-flash");
 
 //requiring routes
 const commentRoutes = require("./routes/comments");
@@ -29,6 +30,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 //review
 app.use(methodOverride("_method"));
+//execute flash to install
+app.use(flash());
 
 
 // Campground.create(
@@ -73,6 +76,9 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res , next){
 	//whatever is entered in res.render is available to all routes
 	 res.locals.currentUser = req.user;
+	 //now have access to use error/success flash msg in all ejs templates 
+	 res.locals.error = req.flash("error");
+	 res.locals.success = req.flash("success");
 	 next();
 });
 

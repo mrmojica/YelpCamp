@@ -22,10 +22,13 @@ router.post("/register", function(req, res){
 	User.register(newUser, req.body.password, function(err, user){
 		if(err){
 			console.log(err);
-			return res.render("register");
+			//passed error in render to fix sign up bug that required to be clicked twice to display error
+			// req.flash("error", err.message);
+			return res.render("register", {"error": err.message});
 		}
 		//if user created redirect to campgrounds
 		passport.authenticate("local")(req, res, function(){
+			req.flash("success", "Welcome to YelpCamp " + user.username);
 			res.redirect("/campgrounds");
 		});
 	});
@@ -37,27 +40,23 @@ router.get("/login", function(req, res){
 	res.render("login");
 });
 
-//login logic (router.post middleware callback)
+//login logic (router.post /middleware /callback)
 
 router.post("/login", passport.authenticate("local", 
 	{
 		successRedirect: "/campgrounds",
-		failureRedirect: "/login"
+		failureRedirect: "/login",
+		// documentation: http://passportjs.org/docs#flash-messages
+		failureFlash: "Invalid username or password.",
+        successFlash: "Welcome to YelpCamp!" 
 	 }), function(req, res){
 });
 
 //logout route
 router.get("/logout", function(req, res){
 	req.logout();
+	req.flash("success", "Logged You Out!");
 	res.redirect("/campgrounds");
 });
-
-//create middleware check user login to add comments etc...
-function isLoggedIn(req, res, next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	res.redirect("/login");
-}
 
 module.exports = router;
