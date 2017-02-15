@@ -9,13 +9,25 @@
 				<div class="form-group">
 					<input class="form-control" type="text" name="comment[text]" value="<%= comment.text %>">
 				</div>
+				<label for="rating">Rating:</label>
+			    <fieldset class="starability-basic form-group" id="rating">
+			      <input type="radio" id="first-rate5" name="comment[rating]" value="5" />
+			      <label for="first-rate5" title="Amazing">5 stars</label>
+			      <input type="radio" id="first-rate4" name="comment[rating]" value="4" />
+			      <label for="first-rate4" title="Very good">4 stars</label>
+			      <input type="radio" id="first-rate3" name="comment[rating]" value="3" />
+			      <label for="first-rate3" title="Average">3 stars</label>
+			      <input type="radio" id="first-rate2" name="comment[rating]" value="2" />
+			      <label for="first-rate2" title="Not good">2 stars</label>
+			      <input type="radio" id="first-rate1" name="comment[rating]" value="1" />
+			      <label for="first-rate1" title="Terrible">1 star</label>
+			    </fieldset>
 				<div class="form-group">
 					<button class="btn btn-lg btn-primary btn-block">Submit!</button>
 				</div>
 			</form>
 			<a href="/campgrounds">Go Back</a>
 		</div>
-
 	</div>
 </div>
 
