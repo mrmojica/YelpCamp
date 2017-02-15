@@ -10,7 +10,8 @@ const commentSchema = new mongoose.Schema({
 			ref: "User"
 		},
 		username: String
-	}
+	},
+	dateCreated: String
 });
 
 module.exports = mongoose.model("Comment", commentSchema);

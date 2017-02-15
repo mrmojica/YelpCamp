@@ -33,6 +33,8 @@ app.use(methodOverride("_method"));
 //execute flash to install
 app.use(flash());
 
+//make moment() available to application
+app.locals.moment = require("moment");
 
 // Campground.create(
 // 	{

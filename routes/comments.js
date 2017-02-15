@@ -4,6 +4,7 @@ const router = express.Router();
 const Campground = require("../models/campground");
 const Comment = require("../models/comment");
 const middleware = require("../middleware");
+const moment = require("moment");
 
 // =======================COMMENTS ROUTES==========================
 
@@ -38,6 +39,7 @@ router.post("/campgrounds/:id/comments", middleware.isLoggedIn, function(req, re
 					//add username and id to comment
 					comment.author.id = req.user._id;
 					comment.author.username = req.user.username;
+					comment.dateCreated = moment().format('MM/DD/YY, HH:mm:ss');
 					console.log("comment info", comment);
 					// console.log("new comment username" + req.user.username);
 					//save comment
