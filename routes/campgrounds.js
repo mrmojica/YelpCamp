@@ -21,14 +21,21 @@ router.get("/campgrounds", function(req, res){
 router.post("/campgrounds", middleware.isLoggedIn, function(req, res){
 	let name = req.body.name;
 	let price = req.body.price;
-	let location = req.body.location;
+	let location = {
+		address: req.body.address,
+		city: req.body.city,
+		state: req.body.state,
+		zipcode: req.body.zipcode,
+	}
+	let phone = req.body.phone;
+	let website = req.body.website;
 	let image = req.body.image;
 	let description = req.body.description;
 	let author = {
 		id: req.user._id,
 		username: req.user.username
 	}
-	let newCampground = {name: name, price: price, location: location, image: image, description: description, author: author}
+	let newCampground = {name: name, price: price, location: location, phone: phone, website: website, image: image, description: description, author: author}
 	
 	console.log(req.user);
 	//Create a new campground and save to DB
@@ -80,6 +87,7 @@ router.put("/campgrounds/:id", middleware.checkCampgroundOwnership, function(req
 	// req.body.campground is being returned as a single object from input "name" value
 	Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
 		if(err){
+			console.log(err);
 			res.redirect("/campgrounds");
 		} else {
 			res.redirect("/campgrounds/" + req.params.id);

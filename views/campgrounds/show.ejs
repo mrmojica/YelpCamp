@@ -19,8 +19,13 @@
                 scrolling="no"
                 marginheight="0"
                 marginwidth="0"
-                src="https://maps.google.com/maps?q=<%= campground.location %>&amp;z=11&amp;output=embed">
+                src="https://maps.google.com/maps?q=<%= campground.location.address %> <%= campground.location.city %>, <%= campground.location.state %> <%= campground.location.zipcode %>&amp;z=11&amp;output=embed">
             </iframe>
+            <span><%= campground.location.address %></span>
+            <br>
+            <span><%= campground.location.city %>, <%= campground.location.state %> <%= campground.location.zipcode %></span>
+            <br>
+            <span><%= campground.phone %></span>
         </div>
 	</div>
 	<div class="col-md-9">
@@ -28,7 +33,7 @@
 			<img class="img-responsive" src="<%= campground.image %>">
 			<div class="caption-full">
 				<h4 class="pull-right">$<%= campground.price %>/night</h4>
-				<h4><a><%= campground.name %></a></h4>
+				<h4><a href="<%= campground.website %>" target="blank"><%= campground.name %></a></h4>
 				<p><%= campground.description %></p>
 				<p><em>Submitted By <%= campground.author.username %></em></p>
 			<!-- 	checks if there is a user and checks if user owns campground -->
