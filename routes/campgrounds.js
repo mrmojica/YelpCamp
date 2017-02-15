@@ -60,8 +60,21 @@ router.get("/campgrounds/:id", function(req, res){
 		if(err){
 			console.log(err)
 		} else {
-			console.log(foundCampground);
-			res.render("campgrounds/show", {campground: foundCampground});
+			// Campground rating result logic
+			let finalRating = 0;
+			let ratings = foundCampground.comments;
+            let listTotal = ratings.length;
+            let sum = 0;
+
+			let ratingSum = ratings.reduce(function(sum, rating){
+				return sum + parseInt(rating.rating);
+			},0);
+
+			finalRating = Math.round(ratingSum / listTotal);
+	
+			console.log("final rating", finalRating);
+			console.log("foundCampground", foundCampground);
+			res.render("campgrounds/show", {campground: foundCampground, campgroundRating: finalRating});
 		}
 	});
 });
@@ -108,6 +121,18 @@ router.delete("/campgrounds/:id", middleware.checkCampgroundOwnership, function(
 	});
 });
 
+
+// let finalRating = function(){
+// 			let ratings = foundCampground.comments;
+//             let listTotal = ratings.length
+//             let sum = 0;
+
+// 			let ratingSum = ratings.reduce(function(sum, rating){
+// 				return sum + parseInt(rating.rating);
+// 			},0);
+
+// 			let finalRating = Math.round(ratingSum / listTotal);
+// }
 
 
 module.exports = router; 
