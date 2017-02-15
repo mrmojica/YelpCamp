@@ -1,5 +1,12 @@
 .thumbnail img {
 	width: 100%;
+/*	min-height: 175px;
+	max-height: 175px;*/
+}
+
+.thumbnail-list img {
+	min-height: 175px;
+	max-height: 175px;
 }
 
 .thumbnail {
