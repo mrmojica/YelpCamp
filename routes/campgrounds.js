@@ -74,7 +74,7 @@ router.get("/campgrounds/:id", function(req, res){
 	
 			console.log("final rating", finalRating);
 			console.log("foundCampground", foundCampground);
-			res.render("campgrounds/show", {campground: foundCampground, campgroundRating: finalRating});
+			res.render("campgrounds/show", {campground: foundCampground, campgroundRating: finalRating, totalComments: listTotal});
 		}
 	});
 });

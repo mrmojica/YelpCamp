@@ -1,5 +1,22 @@
+body {
+	padding-top: 75px;
+/*	background-color: #8DC63F;*/
+}
+
+.container .jumbotron {
+	color: white;
+	background-image: url("http://miriadna.com/desctopwalls/images/max/Forest-at-the-mountains.jpg");
+	box-shadow: 1px 2px 10px #333333;
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .thumbnail img {
 	width: 100%;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
 /*	min-height: 175px;
 	max-height: 175px;*/
 }
@@ -9,14 +26,42 @@
 	max-height: 175px;
 }
 
+
 .thumbnail {
 	padding: 0;
+	box-shadow: 1px 1px 8px #333333;
 }
 
 .thumbnail .caption-full {
 	padding: 10px;
 }
 
+#thumbnail-gallery {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.main-show-img {
+	max-width: 900px;
+	max-height: 600px;
+}
+
+
+/*FORMS*/
+
 #delete-form {
 	display: inline;
+}
+
+.form-title {
+	text-align: center;
+}
+
+.form-container {
+	width: 30%;
+	margin: 30px auto;
+}
+
+.left-column {
+	margin-bottom: 10px;
 }

@@ -4,16 +4,18 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-3">
-		<p class="lead"><a href="<%= campground.website %>" target="blank"><%= campground.name %></a></p>
-		<div class="starability-result" data-rating="<%= campgroundRating %>" aria-describedby="rated-element">
-				</div>
-		<div class="list-group">
+		<p class="lead left-column"><a href="<%= campground.website %>" target="blank"><%= campground.name %></a></p>
+		<div class="starability-result left-column" data-rating="<%= campgroundRating %>" aria-describedby="rated-element">
+		</div>
+		<div class="left-column"><%= totalComments %> reviews</div>
+<!-- 		<div class="list-group">
 			<li class="list-group-item active">Info 1</li>
 			<li class="list-group-item">Info 2</li>
 			<li class="list-group-item">Info 3</li>
-		</div>
+		</div> -->
 		<div>
-            <iframe 
+            <iframe
+            	class="left-column" 
                 title="GoogleMaps"
                 width="100%"
                 height="260"
@@ -32,7 +34,7 @@
 	</div>
 	<div class="col-md-9">
 		<div class="thumbnail">
-			<img class="img-responsive" src="<%= campground.image %>">
+			<img class="img-responsive main-show-img" src="<%= campground.image %>">
 			<div class="caption-full">
 				<h4 class="pull-right">$<%= campground.price %>/night</h4>
 				<h4><a href="<%= campground.website %>" target="blank"><%= campground.name %></a></h4>
@@ -60,7 +62,7 @@
 				<div class="row">
 					<div class="col-md-12">
 					<!-- rating results -->
-					  <div class="starability-result" data-rating="<%= comment.rating %>" aria-describedby="rated-element">
+					  <div class="starability-result left-column" data-rating="<%= comment.rating %>" aria-describedby="rated-element">
 					  </div>
 						<strong><%= comment.author.username %></strong>
 						<span class="pull-right"><%= moment(comment.dateCreated, 'MM/DD/YY, HH:mm:ss').startOf('minute').fromNow() %></span>

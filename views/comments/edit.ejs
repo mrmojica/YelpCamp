@@ -2,8 +2,8 @@
 
 <div class="container">
 	<div class="row">
-		<h1 style="text-align: center;">Edit Comment</h1>
-		<div style="width: 30%; margin: 30px auto;">
+		<h1 class="form-title">Edit Comment</h1>
+		<div class="form-container">
 <!-- 		?_method=PUT (method override) -->
 			<form action="/campgrounds/<%= campground_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
 				<div class="form-group">
