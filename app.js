@@ -23,8 +23,8 @@ const app = express();
 // seedDB();
 
 // const jsonParser = bodyParser.json();
-
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://campground:campground123@ds157349.mlab.com:57349/campgrounds");
+// mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
 //serv public directory -> connect stylesheet to header file
 app.use(express.static(__dirname + "/public"));
