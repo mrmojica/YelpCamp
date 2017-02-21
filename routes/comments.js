@@ -1,10 +1,11 @@
-const express = require("express");
+const express = require("express"),
 //can pass option {mergeParams: true} this allows comment params to merge with campground and allow access
-const router = express.Router();
-const Campground = require("../models/campground");
-const Comment = require("../models/comment");
-const middleware = require("../middleware");
-const moment = require("moment");
+	 router = express.Router(),
+	 Campground = require("../models/campground"),
+	 Comment = require("../models/comment"),
+	 middleware = require("../middleware"),
+	 //Date reference
+	 moment = require("moment")
 
 // =======================COMMENTS ROUTES==========================
 

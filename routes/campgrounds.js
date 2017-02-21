@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const Campground = require("../models/campground");
-const middleware = require("../middleware");
+const express = require("express"),
+	 router = express.Router(),
+	 Campground = require("../models/campground"),
+	 middleware = require("../middleware")
 
 
 router.get("/campgrounds", function(req, res){
@@ -120,19 +120,5 @@ router.delete("/campgrounds/:id", middleware.checkCampgroundOwnership, function(
 		}
 	});
 });
-
-
-// let finalRating = function(){
-// 			let ratings = foundCampground.comments;
-//             let listTotal = ratings.length
-//             let sum = 0;
-
-// 			let ratingSum = ratings.reduce(function(sum, rating){
-// 				return sum + parseInt(rating.rating);
-// 			},0);
-
-// 			let finalRating = Math.round(ratingSum / listTotal);
-// }
-
 
 module.exports = router; 

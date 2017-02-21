@@ -1,14 +1,14 @@
-const express = require("express");
-const bodyParser = require('body-parser');
-const mongoose = require("mongoose");
-const Campground = require("./models/campground");
-const Comment = require("./models/comment");
-const seedDB = require("./seeds");
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
-const User = require("./models/user");
-const methodOverride = require("method-override");
-const flash = require("connect-flash");
+const express = require("express"),
+	 bodyParser = require('body-parser'),
+	 mongoose = require("mongoose"),
+	 Campground = require("./models/campground"),
+	 Comment = require("./models/comment"),
+	 seedDB = require("./seeds"),
+	 passport = require("passport"),
+	 LocalStrategy = require("passport-local"),
+	 User = require("./models/user"),
+	 methodOverride = require("method-override"),
+	 flash = require("connect-flash");
 
 //requiring routes
 const commentRoutes = require("./routes/comments");
@@ -36,27 +36,8 @@ app.use(flash());
 //make moment() available to application
 app.locals.moment = require("moment");
 
-// Campground.create(
-// 	{
-// 		name: "Lake Ford",
-// 		image: "https://farm4.staticflickr.com/3189/3062178880_4edc3b60d5.jpg",
-// 		description: "Explore the vast lake of Lake Ford.  Fresh open nature."
-
-
-// 	}, function(err, campground){
-// 		if(err) {
-// 			console.log(err);
-// 		} else {
-// 			console.log("created new campground:");
-// 			console.log(campground);
-// 		}
-// 	}
-// );
-
 // To delete all data in DB
 // db.collection.drop();
-
-
 
 app.set("view engine", "ejs");
 
