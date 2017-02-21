@@ -93,6 +93,6 @@ app.use(commentRoutes);
 
 
 
-app.listen(8080 || process.env.PORT, function(){
+app.listen(process.env.PORT || 8080, function(){
 	console.log("YelpCamp server running!!");
 });
