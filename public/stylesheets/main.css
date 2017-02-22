@@ -3,6 +3,10 @@ body {
 /*	background-color: #8DC63F;*/
 }
 
+nav {
+	font-weight: bold;
+}
+
 .container .jumbotron {
 	color: white;
 	background-image: url("http://miriadna.com/desctopwalls/images/max/Forest-at-the-mountains.jpg");
